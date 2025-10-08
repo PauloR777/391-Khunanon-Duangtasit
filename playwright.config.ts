@@ -71,9 +71,15 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: {
+    // Start the Quasar dev server used by the tests. The tests expect the
+    // app to be available at http://localhost:9000/#/. We attempt to run
+    // `npm run dev` and reuse an existing server when present so the
+    // command is safe to run locally.
+    command: 'npm run dev',
+    url: 'http://localhost:9000',
+    reuseExistingServer: !process.env.CI,
+    // Give the dev server more time to start on slower machines/CI
+    timeout: 120 * 1000,
+  },
 });
